@@ -1,0 +1,2 @@
+// Vulnerabilities controller placeholder
+export {};

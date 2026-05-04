@@ -1,0 +1,2 @@
+// Vulnerabilities routes placeholder
+export {};

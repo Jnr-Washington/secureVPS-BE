@@ -1,0 +1,2 @@
+// Deploy worker placeholder
+export {};

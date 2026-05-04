@@ -1,0 +1,2 @@
+// Vulnerabilities service placeholder
+export {};

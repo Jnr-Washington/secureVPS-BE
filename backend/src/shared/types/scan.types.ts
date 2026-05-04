@@ -1,0 +1,2 @@
+// Scan types placeholder
+export {};

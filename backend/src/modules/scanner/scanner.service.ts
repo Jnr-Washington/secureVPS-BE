@@ -1,0 +1,2 @@
+// Scanner service placeholder
+export {};

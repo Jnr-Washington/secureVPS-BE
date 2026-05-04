@@ -1,0 +1,2 @@
+// HTML generator placeholder
+export {};

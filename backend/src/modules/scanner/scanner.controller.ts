@@ -1,0 +1,2 @@
+// Scanner controller placeholder
+export {};

@@ -1,0 +1,2 @@
+// Hetzner provider placeholder
+export {};

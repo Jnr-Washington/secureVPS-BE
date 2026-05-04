@@ -1,0 +1,2 @@
+// Vps service placeholder
+export {};

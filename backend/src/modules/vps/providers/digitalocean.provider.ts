@@ -1,0 +1,2 @@
+// DigitalOcean provider placeholder
+export {};

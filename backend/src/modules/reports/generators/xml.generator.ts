@@ -1,0 +1,2 @@
+// XML generator placeholder
+export {};

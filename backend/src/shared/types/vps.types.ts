@@ -1,0 +1,2 @@
+// Vps types placeholder
+export {};

@@ -1,0 +1,2 @@
+// SSE controller placeholder
+export {};

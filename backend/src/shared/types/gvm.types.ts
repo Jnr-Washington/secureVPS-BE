@@ -1,0 +1,2 @@
+// GVM types placeholder
+export {};

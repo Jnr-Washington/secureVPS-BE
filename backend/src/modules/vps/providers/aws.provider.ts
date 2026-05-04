@@ -1,0 +1,2 @@
+// AWS provider placeholder
+export {};

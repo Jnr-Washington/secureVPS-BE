@@ -1,0 +1,2 @@
+// Scan worker placeholder
+export {};

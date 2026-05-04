@@ -1,0 +1,2 @@
+// Report worker placeholder
+export {};

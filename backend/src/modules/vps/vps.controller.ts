@@ -1,0 +1,2 @@
+// Vps controller placeholder
+export {};

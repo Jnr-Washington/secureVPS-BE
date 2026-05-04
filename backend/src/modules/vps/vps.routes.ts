@@ -1,0 +1,2 @@
+// Vps routes placeholder
+export {};

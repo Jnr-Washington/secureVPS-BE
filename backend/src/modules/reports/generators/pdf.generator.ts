@@ -1,0 +1,2 @@
+// PDF generator placeholder
+export {};
