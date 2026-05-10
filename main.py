@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from modules.cmsdetect import detect_cms
 from modules.portscanner import run_nmap, port_scan
@@ -10,8 +11,11 @@ from modules.deployment import VPSDeploymentPipeline
 from modules.reportgen import generate_report
 
 from db.base import Base
-from db.session import engine
-from routers.auth import router as auth_router
+from db.session import engine, get_db
+from schemas.user import SignupRequest, LoginRequest, TokenResponse, RefreshRequest, UserResponse
+from services.auth_service import register_user, login_user, refresh_session, logout_user
+from middleware.auth import get_current_user
+from models.user import User
 import models.user  # noqa: F401 — ensure models are registered with Base
 
 
@@ -33,7 +37,34 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router)
+
+# ─── Auth endpoints ───────────────────────────────────────────────────────────
+
+@app.post("/auth/signup", response_model=UserResponse, status_code=201, tags=["auth"])
+async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
+    return await register_user(body.email, body.password, db)
+
+
+@app.post("/auth/login", response_model=TokenResponse, tags=["auth"])
+async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
+    access_token, refresh_token = await login_user(body.email, body.password, db)
+    return TokenResponse(access_token=access_token, refresh_token=refresh_token)
+
+
+@app.post("/auth/refresh", response_model=TokenResponse, tags=["auth"])
+async def refresh(body: RefreshRequest, db: AsyncSession = Depends(get_db)):
+    access_token, refresh_token = await refresh_session(body.refresh_token, db)
+    return TokenResponse(access_token=access_token, refresh_token=refresh_token)
+
+
+@app.post("/auth/logout", status_code=204, tags=["auth"])
+async def logout(body: RefreshRequest, db: AsyncSession = Depends(get_db)):
+    await logout_user(body.refresh_token, db)
+
+
+@app.get("/auth/me", response_model=UserResponse, tags=["auth"])
+async def me(current_user: User = Depends(get_current_user)):
+    return current_user
 
 
 class ScanRequest(BaseModel):
