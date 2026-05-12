@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Get-ChildItem -Path \"D:\\\\Code\\\\Project-I\\\\VPS-BE\\\\secureVPS-BE\" -Recurse)",
-      "Bash(Select-Object FullName, PSIsContainer)",
-      "Bash(Format-Table -AutoSize)"
-    ]
-  }
-}
